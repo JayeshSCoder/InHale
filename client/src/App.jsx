@@ -127,20 +127,20 @@ const AppRoutes = () => {
           setLastCheckTime(new Date().toLocaleTimeString());
 
           const aqi = Number(data?.aqi ?? 0);
-          const threshold = userRef.current?.aqiThreshold || 0;
-          const baseInterval = userRef.current?.notificationInterval || 1;
-          const intervalMinutes =
-            userRef.current?.notificationUnit === 'minutes' ? baseInterval : baseInterval * 60;
-          const last = userRef.current?.lastNotifiedAt
+          const threshold = Number(userRef.current?.aqiThreshold ?? 0);
+          const rawInterval = userRef.current?.notificationInterval || 1;
+          const unit = userRef.current?.notificationUnit || 'hours';
+          const requiredMinutes = unit === 'hours' ? rawInterval * 60 : rawInterval;
+          const lastTime = userRef.current?.lastNotifiedAt
             ? new Date(userRef.current.lastNotifiedAt).getTime()
             : 0;
           const now = Date.now();
-          const elapsedMinutes = (now - last) / 60000;
+          const elapsedMinutes = (now - lastTime) / (1000 * 60);
 
-          if (aqi > threshold && (last === 0 || elapsedMinutes >= intervalMinutes)) {
+          if (elapsedMinutes >= requiredMinutes && aqi > threshold) {
             if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-              new Notification(`⚠️ Air Alert: AQI ${aqi}`, {
-                body: `Breathing this is like smoking ${(aqi / 22).toFixed(1)} cigarettes.`,
+              new Notification(`InHale Alert`, {
+                body: `⚠️ Air Alert: AQI ${aqi} - Breathing this is like smoking ${(aqi / 22).toFixed(1)} cigarettes.`,
                 icon: '/vite.svg',
               });
             }

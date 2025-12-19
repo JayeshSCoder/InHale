@@ -4,6 +4,55 @@
   padding: 2rem;
 }
 
+.locationBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.locationInfo {
+  flex: 1;
+  min-width: 220px;
+}
+
+.locationLabel {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.locationHeadingRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.locationName {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+.modePill {
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: rgba(191, 219, 254, 0.95);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.locationHint {
+  margin: 0.35rem 0 0;
+  color: var(--text-secondary);
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -73,6 +122,33 @@
   margin: 0.5rem 0 0;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.aiPanel {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(236, 72, 153, 0.08));
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.aiTitle {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: rgba(191, 219, 254, 0.9);
+}
+
+.aiCopy {
+  margin: 0;
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(90deg, #5eead4, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .sliderPanel {
@@ -169,5 +245,9 @@
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .locationBar {
+    flex-direction: column;
   }
 }

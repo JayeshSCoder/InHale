@@ -10,17 +10,50 @@ const requireAuth = (req, res, next) => {
   next();
 };
 
+const sanitizeLocationPreference = (preference = {}) => {
+  if (!preference || typeof preference !== 'object') {
+    return undefined;
+  }
+
+  const allowedModes = ['gps', 'manual'];
+  const mode = allowedModes.includes(preference.mode) ? preference.mode : 'gps';
+  const manualLat = Number(preference.manualLat) || 0;
+  const manualLng = Number(preference.manualLng) || 0;
+
+  return {
+    mode,
+    manualName: preference.manualName ?? '',
+    manualLat,
+    manualLng,
+  };
+};
+
 router.post('/update-settings', requireAuth, async (req, res) => {
-  const { aqiThreshold, notificationInterval, notificationUnit } = req.body;
+  const { aqiThreshold, notificationInterval, notificationUnit, locationPreference } = req.body;
+
+  const updatePayload = {};
+
+  if (typeof aqiThreshold === 'number') {
+    updatePayload.aqiThreshold = aqiThreshold;
+  }
+
+  if (typeof notificationInterval === 'number') {
+    updatePayload.notificationInterval = notificationInterval;
+  }
+
+  if (typeof notificationUnit === 'string') {
+    updatePayload.notificationUnit = notificationUnit;
+  }
+
+  const sanitizedLocationPreference = sanitizeLocationPreference(locationPreference);
+  if (sanitizedLocationPreference) {
+    updatePayload.locationPreference = sanitizedLocationPreference;
+  }
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.user?._id,
-      {
-        aqiThreshold,
-        notificationInterval,
-        notificationUnit,
-      },
+      updatePayload,
       { new: true }
     );
 

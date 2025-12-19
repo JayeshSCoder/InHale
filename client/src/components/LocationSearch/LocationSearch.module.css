@@ -1,0 +1,129 @@
+.wrapper {
+  position: relative;
+  width: min(360px, 100%);
+}
+
+.fieldGroup {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.55);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  border-color: rgba(94, 234, 212, 0.8);
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.45);
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid rgba(226, 232, 240, 0.4);
+  border-top-color: #5eead4;
+  animation: spin 0.8s linear infinite;
+  transform: translateY(-50%);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.55);
+  z-index: 50;
+  padding: 0.4rem 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownItem {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.dropdownItem:hover {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.dropdownName {
+  font-weight: 600;
+}
+
+.dropdownMeta {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.emptyState {
+  padding: 0.75rem 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.error {
+  margin-top: 0.5rem;
+  color: #fca5a5;
+  font-size: 0.85rem;
+}
+
+.helperButton {
+  margin-top: 0.75rem;
+  width: 100%;
+  border: 1px solid rgba(94, 234, 212, 0.4);
+  background: rgba(94, 234, 212, 0.12);
+  color: #5eead4;
+  border-radius: 16px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.helperButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(94, 234, 212, 0.25);
+}
+
+.helperButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}

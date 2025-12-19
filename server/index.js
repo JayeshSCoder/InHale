@@ -11,6 +11,7 @@ const { configurePassport, CLIENT_ORIGIN } = require('./config/passport');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { fetchAQI } = require('./services/aqiService');
+const { getHealthAdvice } = require('./services/geminiService');
 const User = require('./models/User');
 
 const { MONGODB_URI, COOKIE_SESSION_SECRET = 'insecure_dev_secret', PORT = 5000 } = process.env;
@@ -96,6 +97,18 @@ app.get('/api/aqi', async (req, res) => {
   } catch (error) {
     console.error('Failed to retrieve AQI data:', error.message);
     res.status(502).json({ error: 'Unable to fetch AQI data at this time.' });
+  }
+});
+
+app.get('/api/advice', async (req, res) => {
+  const { aqi, city = 'your area', pollutant = 'PM2.5' } = req.query;
+
+  try {
+    const advice = await getHealthAdvice(aqi, city, pollutant);
+    res.json({ advice });
+  } catch (error) {
+    console.error('Failed to generate AI advice:', error.message);
+    res.json({ advice: 'Monitor AQI closely and adjust outdoor exposure accordingly.' });
   }
 });
 app.use('/api/user', userRoutes);

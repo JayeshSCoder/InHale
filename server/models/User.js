@@ -10,6 +10,12 @@ const userSchema = new mongoose.Schema(
     notificationInterval: { type: Number, default: 120 },
     notificationUnit: { type: String, enum: ['minutes', 'hours'], default: 'hours' },
     lastNotifiedAt: { type: Date, default: null },
+    locationPreference: {
+      mode: { type: String, enum: ['gps', 'manual'], default: 'gps' },
+      manualName: { type: String, default: '' },
+      manualLat: { type: Number, default: 0 },
+      manualLng: { type: Number, default: 0 },
+    },
   },
   { timestamps: true }
 );

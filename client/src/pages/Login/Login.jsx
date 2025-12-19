@@ -21,7 +21,7 @@ const Login = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <h1 className={styles.title}>BreatheEasy</h1>
+        <h1 className={styles.title}>InHale</h1>
         <p className={styles.subtitle}>Monitor the invisible killer.</p>
         <button type="button" className={styles.googleButton} onClick={handleGoogleLogin}>
           <span>Continue with Google</span>

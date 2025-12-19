@@ -38,7 +38,7 @@ const Navbar = ({ user, onUpdateUser }) => {
   return (
     <>
       <nav className={styles.nav}>
-        <div className={styles.logo}>BreatheEasy</div>
+        <div className={styles.logo}>InHale</div>
         {user ? (
           <div
             className={styles.profile}
